@@ -1,0 +1,23 @@
+[Version]
+Signature= "$Windows NT$"
+
+[Certsrv_Server]
+RenewalKeyLength=4096
+RenewalValidityPeriod=Years
+RenewalValidityPeriodUnits=15
+CRLPeriod=Months
+CRLPeriodUnits=13
+LoadDefaultTemplates=0
+AlternateSignatureAlgorithm=0
+
+[BasicConstraintsExtension]
+PathLength=0
+Critical=Yes
+
+[PolicyStatementExtension]
+Policies=InternalPolicy
+[InternalPolicy]
+OID=1.2.3.4.1455.67.89.5
+Notice="Legal Policy Statement available at http://pki.contoso.com/docs/CPS"
+URL=http://pki.contoso.com/docs/CPS/
+
