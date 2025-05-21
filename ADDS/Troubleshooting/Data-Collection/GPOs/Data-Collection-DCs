@@ -1,0 +1,31 @@
+Manual collection (Group policy specific logs) - use the following steps
+Capture Group Policy Service verbose logging by running:
+Refresh local and AD based Group Policy settings:
+Hint: Use one of the below commands if you are troubleshooting a particular user or computer missing settings:
+Note: If the GPupdate output fails with a warning, please share the output's content (text in the CMD window).
+Save the Resultant Set of Policy (RSoP) report to an HTML file:
+Save the RSoP summary data to txt file:
+Export the list of the available GPExtensions registry keys:
+Export the System, Application, and Group Policy Operational event viewer logs:
+
+7.Upload the following files to the workspace:
+%Temp%\Application.evtx
+%Temp%\System.evtx
+%Temp%\GroupPolicy.evtx
+%Temp%\GPExtensions.reg
+%Temp%\GPResult.txt
+%Temp%\GPResult.html
+%windir%\debug\usermode\gpsvc.log
+When finished, you can stop Group Policy Service logging:
+Reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Diagnostics" /v GPSvcDebugLevel /t REG_DWORD /d "0x00000000" /f
+wevtutil.exe export-log Application %Temp%\Application.evtx /overwrite:true
+wevtutil.exe export-log System %Temp%\System.evtx /overwrite:true
+wevtutil.exe export-log Microsoft-Windows-GroupPolicy/Operational %Temp%\GroupPolicy.evtx /overwrite:true
+reg export "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions" %Temp%\GPExtensions.reg
+gpresult /r > %Temp%\GPResult.txt
+gpresult /h %Temp%\GPResult.html
+Gpupdate /force /target:computer
+Gpupdate /force /target:user
+gpupdate /force
+Md %windir%\debug\usermode  Reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Diagnostics" /v GPSvcDebugLevel /t REG_DWORD /d "0x00030002"
+ 
